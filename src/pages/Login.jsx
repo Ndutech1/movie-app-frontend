@@ -21,7 +21,7 @@ const Login = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ email, password }),
-        credentials: 'include' // ✅ important for sending/receiving cookies
+        credentials: 'include' // ✅ sends/receives cookies with request
       });
 
       const data = await res.json();
@@ -31,7 +31,7 @@ const Login = () => {
         return;
       }
 
-      login(data.user); // Still useful to store in context
+      login(data.user); // Stores user in context
       navigate('/profile');
     } catch (err) {
       setError('Login error. Please try again.');
