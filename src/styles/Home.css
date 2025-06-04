@@ -1,0 +1,63 @@
+.home-container {
+  background: linear-gradient(to right, #1e1e2f, #2f3640);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.home-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #f9ca24;
+}
+
+.home-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.home-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.home-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: transform 0.2s ease, background-color 0.3s;
+}
+
+.explore-btn {
+  background-color: #f9ca24;
+  color: #1e1e2f;
+}
+
+.explore-btn:hover {
+  background-color: #ffeaa7;
+  transform: scale(1.05);
+}
+
+.register-btn {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #f9ca24;
+}
+
+.register-btn:hover {
+  background-color: #f9ca24;
+  color: #1e1e2f;
+  transform: scale(1.05);
+}
