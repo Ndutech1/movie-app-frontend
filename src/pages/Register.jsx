@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API_BASE from '../utils/api';
-import '../styles/Register.css'; // Use a dedicated CSS file for clarity
+import '../styles/Register.css'; // Dedicated CSS
 
 const Register = () => {
   const navigate = useNavigate();
@@ -17,8 +17,8 @@ const Register = () => {
       const res = await fetch(`${API_BASE}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password }),
-        credentials: 'include' // ✅ Required for sending/receiving cookies
+        credentials: 'include', // ✅ Needed for cookie sessions
+        body: JSON.stringify({ username, email, password })
       });
 
       const data = await res.json();
@@ -49,7 +49,6 @@ const Register = () => {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-
           <input
             type="email"
             placeholder="Email"
@@ -57,7 +56,6 @@ const Register = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-
           <input
             type="password"
             placeholder="Password"
@@ -65,7 +63,6 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-
           <button type="submit">Register</button>
         </form>
       </div>
