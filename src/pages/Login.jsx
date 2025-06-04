@@ -17,8 +17,11 @@ const Login = () => {
     try {
       const res = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ email, password }),
+        credentials: 'include' // ✅ important for sending/receiving cookies
       });
 
       const data = await res.json();
@@ -28,7 +31,7 @@ const Login = () => {
         return;
       }
 
-      login(data.user);
+      login(data.user); // Still useful to store in context
       navigate('/profile');
     } catch (err) {
       setError('Login error. Please try again.');
