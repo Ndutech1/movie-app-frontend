@@ -4,6 +4,7 @@ import { AuthContext } from '../context/Authcontext';
 import API_BASE from '../utils/api';
 import '../styles/Login.css'; // Dedicated login styles
 
+
 const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -24,19 +25,20 @@ const Login = () => {
         credentials: 'include' // ✅ sends/receives cookies with request
       });
 
-      const data = await res.json();
+    const data = await res.json();
 
       if (!res.ok) {
         setError(data.message || 'Login failed');
         return;
       }
 
-      login(data.user); // Stores user in context
-      navigate('/profile');
-    } catch (err) {
-      setError('Login error. Please try again.');
-    }
-  };
+    login(data.user); // Stores user in context
+    navigate('/profile');
+  } catch (err) {
+    setError('Login error. Please try again.');
+  }
+};
+
 
   return (
     <div className="login-container">
