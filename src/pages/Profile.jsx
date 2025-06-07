@@ -1,9 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/Authcontext';
 import API_BASE from '../utils/api';
-import '../styles/Profile.css';
 import Spinner from '../components/Spinner';
-
+import {
+  Box,
+  Typography,
+  TextField,
+  Tabs,
+  Tab,
+  Button,
+  Stack,
+  Paper
+} from '@mui/material';
 
 const Profile = () => {
   const { user, token } = useContext(AuthContext);
@@ -51,39 +59,63 @@ const Profile = () => {
     ) || [];
 
     return list.length ? (
-      list.map((movie) => (
-        <div key={movie.movieId} className="movie-card">
-          <span>{movie.title}</span>
-          <button onClick={() => handleDelete(type, movie.movieId)}>✖ Remove</button>
-        </div>
-      ))
+      <Stack spacing={2} mt={2}>
+        {list.map((movie) => (
+          <Paper key={movie.movieId} sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography>{movie.title}</Typography>
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={() => handleDelete(type, movie.movieId)}
+            >
+              ✖ Remove
+            </Button>
+          </Paper>
+        ))}
+      </Stack>
     ) : (
-      <p className="empty-message">No movies found.</p>
+      <Typography mt={3} variant="body2" color="text.secondary">
+        No movies found.
+      </Typography>
     );
   };
 
   return (
-    <div className="profile-container">
-      <h2>{user?.email}'s Dashboard</h2>
-      
-      <input
-        type="text"
-        className="search-bar"
+    <Box p={4}>
+      <Typography variant="h5" mb={2}>
+        {user?.email}'s Dashboard
+      </Typography>
+
+      <TextField
+        fullWidth
+        label="Search movies"
         placeholder="🔍 Search movies..."
+        variant="outlined"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        sx={{ mb: 3 }}
       />
 
-      <div className="tab-controls">
-        <button className={currentTab === 'favorites' ? 'active' : ''} onClick={() => setCurrentTab('favorites')}>Favorites</button>
-        <button className={currentTab === 'watchlist' ? 'active' : ''} onClick={() => setCurrentTab('watchlist')}>Watchlist</button>
-        <button className={currentTab === 'ratings' ? 'active' : ''} onClick={() => setCurrentTab('ratings')}>Ratings</button>
-      </div>
+      <Tabs
+        value={currentTab}
+        onChange={(e, newVal) => setCurrentTab(newVal)}
+        textColor="primary"
+        indicatorColor="primary"
+        aria-label="Profile tabs"
+      >
+        <Tab label="Favorites" value="favorites" />
+        <Tab label="Watchlist" value="watchlist" />
+        <Tab label="Ratings" value="ratings" />
+      </Tabs>
 
-      <div className="movie-list">
-        {renderList(currentTab)}
-      </div>
-    </div>
+      {profile ? (
+        <Box mt={3}>
+          {renderList(currentTab)}
+        </Box>
+      ) : (
+        <Spinner /> // or <Typography>Loading...</Typography> if you prefer
+      )}
+    </Box>
   );
 };
 
